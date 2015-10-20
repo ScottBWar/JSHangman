@@ -10,9 +10,12 @@ var content = $("#content"),           //select relevant elements
 
 
 var gameWord = "ruby";
+displayBlanks();
+
 var wrongLetters = [];
 var correctLetters = [];
 var strikes = 0;
+
 
 function displayBlanks(){
 var blanks = [];
@@ -45,9 +48,20 @@ function guess(letter, word){
   }
 }
 
+function getGameResults(){
+  if(correctLetters.length === gameWord.length){
+    feedbackContainer.css({"color":"teal"});
+    feedbackContainer.text("YOU WIN! The word is : " + gameWord);
+  }
+  else if(strikes > 5){
+    feedbackContainer.css({"color":"maroon"});
+    feedbackContainer.text("YOU LOSE! The word was: " + gameWord);
+  }
+}
+
 
 submitBtn.on('click', function(){
   guess(letterContainer.val().toLowerCase(), gameWord);
-
+  getGameResults();
 });
 
