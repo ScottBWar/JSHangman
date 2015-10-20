@@ -19,21 +19,13 @@ var blanks = [];
 for(var i = 0;i < gameWord.length; i++){
     blanks.push("-");
   }
-
-console.log(gameWord);
-console.log(blanks);
-
-for(var i in correctLetters){
-  if(gameWord.indexOf(correctLetters[i]) > -1){
-    blanks[gameWord.indexOf(correctLetters[i])] = correctLetters[i];
+for(var letter in correctLetters){
+  if(gameWord.indexOf(correctLetters[letter]) > -1){
+    blanks[gameWord.indexOf(correctLetters[letter])] = correctLetters[letter];
   }
   }
-console.log(blanks);
-gameWordContainer.text(blanks);
-};
-
-
-
+gameWordContainer.text(blanks.join(""));
+}
 
 
 function guess(letter, word){
