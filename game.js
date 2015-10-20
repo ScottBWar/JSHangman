@@ -17,10 +17,12 @@ function Game(gameWord) {
         for (var i = 0; i < word.length; i++) {
             blanks.push("-");
         }
-        for (var letter in correctLetters) {
-            if (word.indexOf(correctLetters[letter]) > -1) {
-                blanks[word.indexOf(correctLetters[letter])] = correctLetters[letter];
+        for (var letter in correctLetters) {   //YIKES! This works for now, but I'll need to refactor later
+          for (var cha in word){
+            if (word[cha] == correctLetters[letter]){
+              blanks[cha] = correctLetters[letter];
             }
+          }
         }
         gameWordContainer.text(blanks.join(""));
     };
@@ -31,8 +33,15 @@ function Game(gameWord) {
                 "color": "blue"
             });
             feedbackContainer.text("You got it:  " + letter);
-            correctLetters.push(letter);
+
+            for(var i = 0;i < word.length; i++){
+              if(word[i] == letter){
+                  correctLetters.push(letter);
+              }
+            }
+            console.log(correctLetters);
             displayBlanks(word);
+
         } else {
             feedbackContainer.css({
                 "color": "red"
@@ -60,9 +69,8 @@ function Game(gameWord) {
 }
 
 
+game1 = new Game("aabbcc");
 
-
-game1 = new Game("ruby");
 
 submitBtn.on('click', function() {
     game1.guess(letterContainer.val().toLowerCase(), game1.gameWord);
